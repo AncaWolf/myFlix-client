@@ -10,10 +10,10 @@ export const MainView = () => {
     fetch("https://awolf-movies-app.onrender.com/movies")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        const moviesFromApi = data.map((movie) => {
+        // console.log(data);
+        const moviesFromApi = data.movies.map((movie) => {
           return {
-            _id: movie._id,
+            _id: movie.key,
             title: movie.title,
             image: movie.image,
             description: movie.description,
