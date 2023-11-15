@@ -27188,16 +27188,16 @@ const MainView = ()=>{
     // fetch data from Api
     (0, _react.useEffect)(()=>{
         fetch("https://awolf-movies-app.onrender.com/movies").then((response)=>response.json()).then((data)=>{
-            // console.log(data);
-            const moviesFromApi = data.movies.map((movie)=>{
+            console.log(data);
+            const moviesFromApi = data.map((movie)=>{
                 return {
-                    _id: movie.key,
+                    _id: movie.id,
                     title: movie.title,
                     image: movie.image,
                     description: movie.description,
                     genre: {
-                        genreName: movie.genre.genreName,
-                        genreDescription: movie.genre.genreDescription
+                        Name: movie.genre.Name,
+                        Description: movie.genre.Description
                     },
                     director: {
                         directorName: movie.director.directorName,
