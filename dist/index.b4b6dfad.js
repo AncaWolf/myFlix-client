@@ -27196,7 +27196,7 @@ const MainView = ()=>{
                     image: movie.image,
                     description: movie.description,
                     genre: {
-                        Name: movie.genre.Name,
+                        genreName: movie.genre.genreName,
                         Description: movie.genre.Description
                     },
                     director: {
