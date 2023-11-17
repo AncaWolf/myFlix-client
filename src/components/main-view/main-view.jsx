@@ -11,20 +11,20 @@ export const MainView = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        const moviesFromApi = data.movies.map((movie) => {
+        const moviesFromApi = data.map((movie) => {
           return {
             _id: movie.id,
             title: movie.title,
             image: movie.image,
             description: movie.description,
             genre: {
-              genreName: movie.genre.genreName,
-              Description: movie.genre.Description,
+              genreName: movie.genreName,
+              Description: movie.Description,
             },
             director: {
-              directorName: movie.director.directorName,
-              bio: movie.director.bio,
-              birthyear: movie.director.birthyear,
+              directorName: movie.directorName,
+              bio: movie.bio,
+              birthyear: movie.birthyear,
             },
           };
         });
