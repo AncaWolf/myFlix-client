@@ -27196,13 +27196,13 @@ const MainView = ()=>{
                     image: movie.image,
                     description: movie.description,
                     genre: {
-                        genreName: movie.genre.genreName,
-                        Description: movie.genre.Description
+                        genreName: movie.genreName,
+                        Description: movie.Description
                     },
                     director: {
-                        directorName: movie.director.directorName,
-                        bio: movie.director.bio,
-                        birthyear: movie.director.birthyear
+                        directorName: movie.directorName,
+                        bio: movie.bio,
+                        birthyear: movie.birthyear
                     }
                 };
             });
@@ -28269,7 +28269,7 @@ const MovieView = ({ movie, onBackClick })=>{
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                        children: movie.director
+                        children: movie.Director.Name
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
                         lineNumber: 15,
@@ -28291,7 +28291,7 @@ const MovieView = ({ movie, onBackClick })=>{
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                        children: movie.genre
+                        children: movie.Genre.Name
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
                         lineNumber: 19,
