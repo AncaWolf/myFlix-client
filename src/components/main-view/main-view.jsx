@@ -1,13 +1,24 @@
 import { useEffect, useState } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
+import { SignupView } from "../signup-view/signup-view";
 
 export const MainView = () => {
+  const storedUser = Json.parse(localStorage.getItem("user"));
+  const storedToken = localStorage.getItem("token");
+  const [user, setUser] = useState(storedUser ? storedUser : null);
+  const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   // fetch data from Api
   useEffect(() => {
-    fetch("https://awolf-movies-app.onrender.com/movies")
+    if (!token) {
+      return;
+    }
+    fetch("https://awolf-movies-app.onrender.com/movies", {
+      headers: { Authorization: `Bearer ${token}` }
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -30,22 +41,30 @@ export const MainView = () => {
         });
         setMovies(moviesFromApi);
       });
-  }, []);
+  }, [token]);
 
-  const [selectedMovie, setSelectedMovie] = useState(null);
 
   if (selectedMovie) {
     return (
-      <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+      <>
+        <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
+        <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+      </>
     );
   }
 
   if (movies.length === 0) {
-    return <div>The list is empty!</div>;
+    return (
+      <>
+        <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
+        <div>The list is empty!</div>;
+      </>
+    );
   }
 
   return (
     <div>
+      <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
       {movies.map((movie) => (
         <MovieCard
           key={movie.id}
@@ -58,3 +77,19 @@ export const MainView = () => {
     </div>
   );
 };
+
+
+if (!user) {
+  return (
+    <>
+      <LoginView onLoggedIn={(user, token) => {
+        setUser(user);
+        setToken(token);
+      }} />
+      or
+      <SignupView />
+    </>
+  );
+}
+
+<button onClick={() => { setUser(null); setToken(null); }}>Logout</button>
