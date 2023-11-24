@@ -5,7 +5,7 @@ import { SignupView } from "../signup-view/signup-view";
 import { LoginView } from "../login-view/login-view";
 
 export const MainView = () => {
-  const storedUser = Json.parse(localStorage.getItem("user"));
+  const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
