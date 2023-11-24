@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { SignupView } from "../signup-view/signup-view";
+import { LoginView } from "../login-view/login-view";
 
 export const MainView = () => {
   const storedUser = Json.parse(localStorage.getItem("user"));
@@ -43,6 +44,18 @@ export const MainView = () => {
       });
   }, [token]);
 
+  if (!user) {
+    return (
+      <>
+        <LoginView onLoggedIn={(user, token) => {
+          setUser(user);
+          setToken(token);
+        }} />
+        or
+        <SignupView />
+      </>
+    );
+  }
 
   if (selectedMovie) {
     return (
@@ -63,33 +76,23 @@ export const MainView = () => {
   }
 
   return (
-    <div>
+    <>
+      <div>
+        {movies.map((movie) => (
+          <MovieCard
+            key={movie.id}
+            movie={movie}
+            onMovieClick={(newSelectedMovie) => {
+              setSelectedMovie(newSelectedMovie);
+            }}
+          />
+        ))}
+      </div>
       <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
-      {movies.map((movie) => (
-        <MovieCard
-          key={movie.id}
-          movie={movie}
-          onMovieClick={(newSelectedMovie) => {
-            setSelectedMovie(newSelectedMovie);
-          }}
-        />
-      ))}
-    </div>
+    </>
   );
 };
 
 
-if (!user) {
-  return (
-    <>
-      <LoginView onLoggedIn={(user, token) => {
-        setUser(user);
-        setToken(token);
-      }} />
-      or
-      <SignupView />
-    </>
-  );
-}
 
-<button onClick={() => { setUser(null); setToken(null); }}>Logout</button>
+{/* <button onClick={() => { setUser(null); setToken(null); }}>Logout</button> */ }
