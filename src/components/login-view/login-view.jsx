@@ -9,8 +9,8 @@ export const LoginView = ({ onLoggedIn }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = {
-      access: username,
-      secret: password,
+      Username: username,
+      Password: password,
     };
     fetch("https://awolf-movies-app.onrender.com/login", {
       method: "POST",
