@@ -27287,8 +27287,7 @@ const MainView = ()=>{
                 fileName: "src/components/main-view/main-view.jsx",
                 lineNumber: 73,
                 columnNumber: 9
-            }, undefined),
-            ";"
+            }, undefined)
         ]
     }, void 0, true);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
