@@ -70,7 +70,7 @@ export const MainView = () => {
     return (
       <>
         <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
-        <div>The list is empty!</div>;
+        <div>The list is empty!</div>
       </>
     );
   }
