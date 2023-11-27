@@ -28616,7 +28616,7 @@ const LoginView = ({ onLoggedIn })=>{
             access: username,
             secret: password
         };
-        fetch("https://awolf-movies-app.onrender.com", {
+        fetch("https://awolf-movies-app.onrender.com/login", {
             method: "POST",
             body: JSON.stringify(data),
             header: {
