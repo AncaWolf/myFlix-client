@@ -15,7 +15,7 @@ export const LoginView = ({ onLoggedIn }) => {
     fetch("https://awolf-movies-app.onrender.com/login", {
       method: "POST",
       body: JSON.stringify(data),
-      header: {
+      headers: {
         "Content-Type": "application/json"
       }
     }).then((response) => response.json())
