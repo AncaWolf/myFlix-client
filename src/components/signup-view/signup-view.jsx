@@ -19,7 +19,7 @@ export const SignupView = () => {
         fetch("https://awolf-movies-app.onrender.com/users", {
             method: "POST",
             body: JSON.stringify(data),
-            header: {
+            headers: {
                 "Content-Type": "application/json"
             }
         }).then((response) => {
