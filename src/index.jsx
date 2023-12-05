@@ -1,5 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import { MainView } from './components/main-view/main-view';
+import Container from "react-bootstrap/Container";
+import "./index.scss";
 
 // statement to indicated that you need to bundle `./index.scss`
 import "./index.scss";
@@ -15,9 +17,11 @@ import "./index.scss";
 
 const MovieApp = () => {
     return (
-        <MainView />
-    )
-}
+        <Container>
+            <MainView />
+        </Container>
+    );
+};
 
 // needed to find the root of the app
 const container = document.querySelector("#root");
