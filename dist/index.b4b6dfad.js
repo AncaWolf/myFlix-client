@@ -27315,35 +27315,6 @@ const MainView = ()=>{
 };
 _s(MainView, "9wJBvfUyU2IigbyWC+M5y3EH9h4=");
 _c = MainView;
-//   if (!user) {
-//     return (
-//       <>
-//       </>
-//     );
-//   }
-//   if (selectedMovie) {
-//     return (
-//       <>
-//         <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
-//       </>
-//     );
-//   }
-//   if (movies.length === 0) {
-//     return (
-//       <>
-//         <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
-//         <div>The list is empty!</div>
-//       </>
-//     );
-//   }
-//   return (
-//     <>
-//       <div>
-//       </div>
-//       <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
-//     </>
-//   );
-// };
 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
     onClick: ()=>{
         setUser(null);
@@ -27352,7 +27323,7 @@ _c = MainView;
     children: "Logout"
 }, void 0, false, {
     fileName: "src/components/main-view/main-view.jsx",
-    lineNumber: 127,
+    lineNumber: 88,
     columnNumber: 1
 }, undefined);
 var _c;
