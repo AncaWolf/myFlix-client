@@ -85,43 +85,4 @@ export const MainView = () => {
   );
 };
 
-
-//   if (!user) {
-//     return (
-//       <>
-
-//       </>
-//     );
-//   }
-
-//   if (selectedMovie) {
-//     return (
-//       <>
-//         <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
-
-//       </>
-//     );
-//   }
-
-//   if (movies.length === 0) {
-//     return (
-//       <>
-//         <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
-//         <div>The list is empty!</div>
-//       </>
-//     );
-//   }
-
-//   return (
-//     <>
-//       <div>
-
-//       </div>
-//       <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
-//     </>
-//   );
-// };
-
-
-
 <button onClick={() => { setUser(null); setToken(null); }}>Logout</button>
