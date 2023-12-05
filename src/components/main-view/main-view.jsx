@@ -19,7 +19,7 @@ export const MainView = () => {
     if (!token) {
       return;
     }
-    fetch("https://awolf-movies-app.onrender.com", {
+    fetch("https://awolf-movies-app.onrender.com/movies", {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((response) => response.json())
@@ -29,7 +29,7 @@ export const MainView = () => {
           return {
             _id: movie._id,
             title: movie.Title,
-            image: movie.ImagePath,
+            ImagePath: movie.ImagePath,
             description: movie.Description,
             genre: {
               genreName: movie.Genre.genreName,
@@ -39,7 +39,7 @@ export const MainView = () => {
               directorName: movie.Director.directorName,
               bio: movie.Director.Bio,
               birthyear: movie.birthyear,
-            },
+            }
           };
         });
         setMovies(moviesFromApi);
