@@ -62,7 +62,7 @@ export const SignupView = () => {
         <Form.Control
           type="email"
           value={email}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
       </Form.Group>
@@ -72,7 +72,7 @@ export const SignupView = () => {
         <Form.Control
           type="date"
           value={birthday}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setBirthday(e.target.value)}
           required
         />
       </Form.Group>
