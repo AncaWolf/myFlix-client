@@ -27217,16 +27217,14 @@ const MainView = ()=>{
                 return {
                     _id: movie._id,
                     title: movie.Title,
-                    ImagePath: movie.ImagePath,
+                    // ImagePath: movie.ImagePath,
                     description: movie.Description,
                     genre: {
                         Name: movie.Genre.Name,
                         Description: movie.Genre.Description
                     },
                     director: {
-                        Name: movie.Director.Name,
-                        bio: movie.Director.Bio,
-                        birthyear: movie.birthyear
+                        Name: movie.Director.Name
                     }
                 };
             });
@@ -30725,14 +30723,14 @@ const MovieView = ({ movie, onBackClick })=>{
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                        children: "Director: "
+                        children: "Genre: "
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
                         lineNumber: 15,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                        children: movie.Director.Name
+                        children: movie.Genre.Name
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
                         lineNumber: 16,
@@ -30747,14 +30745,14 @@ const MovieView = ({ movie, onBackClick })=>{
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                        children: "Genre: "
+                        children: "Director: "
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
                         lineNumber: 19,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                        children: movie.Genre.Name
+                        children: movie.Director.Name
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
                         lineNumber: 20,
@@ -30811,14 +30809,14 @@ _c = MovieView;
 // defining PropTypes constraints
 MovieView.propTypes = {
     movie: (0, _propTypesDefault.default).shape({
-        image: (0, _propTypesDefault.default).string.isRequired,
+        imagePath: (0, _propTypesDefault.default).string.isRequired,
         title: (0, _propTypesDefault.default).string.isRequired,
         description: (0, _propTypesDefault.default).string.isRequired,
         director: (0, _propTypesDefault.default).shape({
-            directorName: (0, _propTypesDefault.default).string.isRequired
+            Name: (0, _propTypesDefault.default).string.isRequired
         }),
         genre: (0, _propTypesDefault.default).shape({
-            genreName: (0, _propTypesDefault.default).string.isRequired
+            Name: (0, _propTypesDefault.default).string.isRequired
         })
     }).isRequired,
     onBackClick: (0, _propTypesDefault.default).func.isRequired
