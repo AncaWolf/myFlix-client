@@ -21,7 +21,7 @@ export const MovieView = ({ movie, onBackClick }) => {
         <span>{movie.Description}</span>
       </div>
       <div>
-        <img src={movie.imagePath} />
+        <img src={movie.ImagePath} />
       </div>
       <button
         className="back-button"
@@ -48,3 +48,5 @@ MovieView.propTypes = {
   }).isRequired,
   onBackClick: PropTypes.func.isRequired,
 };
+
+

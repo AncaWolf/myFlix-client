@@ -27226,7 +27226,7 @@ const MainView = ()=>{
                     Director: {
                         Name: movie.Director.Name,
                         Bio: movie.Director.Bio,
-                        birthyear: movie.birthyear
+                        Birthyear: movie.Birthyear
                     }
                 };
             });
@@ -30777,7 +30777,7 @@ const MovieView = ({ movie, onBackClick })=>{
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                    src: movie.imagePath
+                    src: movie.ImagePath
                 }, void 0, false, {
                     fileName: "src/components/movie-view/movie-view.jsx",
                     lineNumber: 24,

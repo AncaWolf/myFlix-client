@@ -38,8 +38,8 @@ export const MainView = () => {
             Director: {
               Name: movie.Director.Name,
               Bio: movie.Director.Bio,
-              birthyear: movie.birthyear,
-            }
+              Birthyear: movie.Birthyear
+            },
           };
         });
         setMovies(moviesFromApi);
