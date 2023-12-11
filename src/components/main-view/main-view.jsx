@@ -27,18 +27,18 @@ export const MainView = () => {
         console.log(data);
         const moviesFromApi = data.map((movie) => {
           return {
-            _id: movie._id,
-            title: movie.Title,
-            // ImagePath: movie.ImagePath,
-            description: movie.Description,
-            genre: {
+            _id: movie.id,
+            Title: movie.Title,
+            ImagePath: movie.ImagePath,
+            Description: movie.Description,
+            Genre: {
               Name: movie.Genre.Name,
               Description: movie.Genre.Description,
             },
-            director: {
+            Director: {
               Name: movie.Director.Name,
-              // bio: movie.Director.Bio,
-              // birthyear: movie.birthyear,
+              Bio: movie.Director.Bio,
+              birthyear: movie.birthyear,
             }
           };
         });
