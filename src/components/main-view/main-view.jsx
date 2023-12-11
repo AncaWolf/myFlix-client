@@ -29,7 +29,7 @@ export const MainView = () => {
           return {
             _id: movie._id,
             title: movie.Title,
-            ImagePath: movie.ImagePath,
+            // ImagePath: movie.ImagePath,
             description: movie.Description,
             genre: {
               Name: movie.Genre.Name,
@@ -37,8 +37,8 @@ export const MainView = () => {
             },
             director: {
               Name: movie.Director.Name,
-              bio: movie.Director.Bio,
-              birthyear: movie.birthyear,
+              // bio: movie.Director.Bio,
+              // birthyear: movie.birthyear,
             }
           };
         });
