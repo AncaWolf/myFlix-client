@@ -27207,7 +27207,7 @@ const MainView = ()=>{
     // fetch data from Api
     (0, _react.useEffect)(()=>{
         if (!token) return;
-        fetch("https://awolf-movies-app.onrender.com/movies", {
+        fetch("https://awolf-movies-app.onrender.com", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -27219,9 +27219,18 @@ const MainView = ()=>{
                     Title: movie.Title,
                     ImagePath: movie.ImagePath,
                     Description: movie.Description,
-                    Genre: movie.Genre,
-                    Director: movie.Director,
-                    ImagePath: movie.ImagePath
+                    // Genre: movie.Genre,
+                    // Director: movie.Director,
+                    // ImagePath: movie.ImagePath
+                    Genre: {
+                        Name: movie.Genre.Name,
+                        Description: movie.Genre.Description
+                    },
+                    Director: {
+                        Name: movie.Director.Name,
+                        Bio: movie.Director.Bio,
+                        Birthyear: movie.Birthyear
+                    }
                 };
             });
             setMovies(moviesFromApi);
@@ -30713,7 +30722,7 @@ const MovieView = ({ movie, onBackClick })=>{
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                        children: movie.Genre
+                        children: movie.Genre.Name
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
                         lineNumber: 13,
@@ -30735,7 +30744,7 @@ const MovieView = ({ movie, onBackClick })=>{
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                        children: movie.Director
+                        children: movie.Director.Name
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
                         lineNumber: 17,
@@ -30807,14 +30816,14 @@ MovieView.propTypes = {
     movie: (0, _propTypesDefault.default).shape({
         Title: (0, _propTypesDefault.default).string.isRequired,
         Description: (0, _propTypesDefault.default).string.isRequired,
-        Genre: (0, _propTypesDefault.default).string.isRequired,
-        Director: (0, _propTypesDefault.default).string.isRequired,
-        // Genre: PropTypes.shape({
-        //   Name: PropTypes.string.isRequired,
-        // }),
-        // Director: PropTypes.shape({
-        //   Name: PropTypes.string.isRequired,
-        // }),
+        // Genre: PropTypes.string.isRequired,
+        // Director: PropTypes.string.isRequired,
+        Genre: (0, _propTypesDefault.default).shape({
+            Name: (0, _propTypesDefault.default).string.isRequired
+        }),
+        Director: (0, _propTypesDefault.default).shape({
+            Name: (0, _propTypesDefault.default).string.isRequired
+        }),
         ImagePath: (0, _propTypesDefault.default).string.isRequired
     }).isRequired,
     onBackClick: (0, _propTypesDefault.default).func.isRequired
