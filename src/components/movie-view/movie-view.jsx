@@ -10,11 +10,11 @@ export const MovieView = ({ movie, onBackClick }) => {
       </div>
       <div>
         <span>Genre: </span>
-        <span>{movie.Genre}</span>
+        <span>{movie.Genre.Name}</span>
       </div>
       <div>
         <span>Director: </span>
-        <span>{movie.Director}</span>
+        <span>{movie.Director.Name}</span>
       </div>
       <div>
         <span>Description: </span>
@@ -38,14 +38,14 @@ MovieView.propTypes = {
   movie: PropTypes.shape({
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
-    Genre: PropTypes.string.isRequired,
-    Director: PropTypes.string.isRequired,
-    // Genre: PropTypes.shape({
-    //   Name: PropTypes.string.isRequired,
-    // }),
-    // Director: PropTypes.shape({
-    //   Name: PropTypes.string.isRequired,
-    // }),
+    // Genre: PropTypes.string.isRequired,
+    // Director: PropTypes.string.isRequired,
+    Genre: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+    }),
+    Director: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+    }),
     ImagePath: PropTypes.string.isRequired
   }).isRequired,
   onBackClick: PropTypes.func.isRequired,
