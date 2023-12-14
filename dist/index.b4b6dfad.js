@@ -27207,7 +27207,7 @@ const MainView = ()=>{
     // fetch data from Api
     (0, _react.useEffect)(()=>{
         if (!token) return;
-        fetch("https://awolf-movies-app.onrender.com", {
+        fetch("https://awolf-movies-app.onrender.com/movies", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
