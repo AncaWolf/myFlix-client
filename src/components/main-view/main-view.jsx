@@ -19,7 +19,7 @@ export const MainView = () => {
     if (!token) {
       return;
     }
-    fetch("https://awolf-movies-app.onrender.com", {
+    fetch("https://awolf-movies-app.onrender.com/movies", {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((response) => response.json())
