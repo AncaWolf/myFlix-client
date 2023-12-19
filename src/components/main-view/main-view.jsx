@@ -3,6 +3,8 @@ import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { SignupView } from "../signup-view/signup-view";
 import { LoginView } from "../login-view/login-view";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -17,7 +19,7 @@ export const MainView = () => {
     if (!token) {
       return;
     }
-    fetch("https://awolf-movies-app.onrender.com", {
+    fetch("https://awolf-movies-app.onrender.com/movies", {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((response) => response.json())
@@ -25,18 +27,21 @@ export const MainView = () => {
         console.log(data);
         const moviesFromApi = data.map((movie) => {
           return {
-            _id: movie._id,
-            title: movie.Title,
-            image: movie.ImagePath,
-            description: movie.Description,
-            genre: {
-              genreName: movie.Genre.genreName,
+            _id: movie.id,
+            Title: movie.Title,
+            ImagePath: movie.ImagePath,
+            Description: movie.Description,
+            // Genre: movie.Genre,
+            // Director: movie.Director,
+            // ImagePath: movie.ImagePath
+            Genre: {
+              Name: movie.Genre.Name,
               Description: movie.Genre.Description,
             },
-            director: {
-              directorName: movie.Director.directorName,
-              bio: movie.Director.Bio,
-              birthyear: movie.birthyear,
+            Director: {
+              Name: movie.Director.Name,
+              Bio: movie.Director.Bio,
+              Birthyear: movie.Birthyear
             },
           };
         });
@@ -44,55 +49,43 @@ export const MainView = () => {
       });
   }, [token]);
 
-  if (!user) {
-    return (
-      <>
-        <LoginView onLoggedIn={(user, token) => {
-          setUser(user);
-          setToken(token);
-        }} />
-        or
-        <SignupView />
-      </>
-    );
-  }
-
-  if (selectedMovie) {
-    return (
-      <>
-        <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
-        <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
-      </>
-    );
-  }
-
-  if (movies.length === 0) {
-    return (
-      <>
-        <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
-        <div>The list is empty!</div>
-      </>
-    );
-  }
-
   return (
-    <>
-      <div>
-        {movies.map((movie) => (
-          <MovieCard
-            key={movie.id}
-            movie={movie}
-            onMovieClick={(newSelectedMovie) => {
-              setSelectedMovie(newSelectedMovie);
-            }}
-          />
-        ))}
-      </div>
-      <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
-    </>
+    <Row className="justify-content-md-center">
+      {!user ? (
+        <Col md={5}>
+          <LoginView onLoggedIn={(user, token) => {
+            setUser(user);
+            setToken(token);
+          }} />
+          or
+          <SignupView />
+        </Col>
+      ) : selectedMovie ? (
+        <Col md={8} style={{ border: "1px solid black" }}>
+          <MovieView
+            style={{ border: "1px solid green" }}
+            movie={selectedMovie}
+            onBackClick={() => setSelectedMovie(null)} />
+        </Col>
+      ) : movies.length === 0 ? (
+        <div>The list is empty!</div>
+      ) : (
+        <>
+          {movies.map((movie) => (
+            <Col className="mb-5" key={movie.id} md={3}>
+              <MovieCard
+                key={movie.id}
+                movie={movie}
+                onMovieClick={(newSelectedMovie) => {
+                  setSelectedMovie(newSelectedMovie);
+                }}
+              />
+            </Col>
+          ))}
+        </>
+      )}
+    </Row>
   );
 };
 
-
-
-{/* <button onClick={() => { setUser(null); setToken(null); }}>Logout</button> */ }
+<button onClick={() => { setUser(null); setToken(null); }}>Logout</button>

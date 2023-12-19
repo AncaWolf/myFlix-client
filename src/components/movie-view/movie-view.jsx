@@ -1,28 +1,34 @@
 import PropTypes from "prop-types";
+import "./movie-view.scss";
 
 export const MovieView = ({ movie, onBackClick }) => {
   return (
     <div>
       <div>
-        <img src={movie.image} />
-      </div>
-      <div>
         <span>Title: </span>
-        <span>{movie.title}</span>
-      </div>
-      <div>
-        <span>Director: </span>
-        <span>{movie.Director.Name}</span>
+        <span>{movie.Title}</span>
       </div>
       <div>
         <span>Genre: </span>
         <span>{movie.Genre.Name}</span>
       </div>
       <div>
-        <span>Description: </span>
-        <span>{movie.description}</span>
+        <span>Director: </span>
+        <span>{movie.Director.Name}</span>
       </div>
-      <button onClick={onBackClick}>Back to movie list</button>
+      <div>
+        <span>Description: </span>
+        <span>{movie.Description}</span>
+      </div>
+      <div>
+        <img src={movie.ImagePath} />
+      </div>
+      <button
+        className="back-button"
+        style={{ cursor: "pointer" }}
+        onClick={onBackClick}>
+        Back to movie list
+      </button>
     </div>
   );
 };
@@ -30,15 +36,19 @@ export const MovieView = ({ movie, onBackClick }) => {
 // defining PropTypes constraints
 MovieView.propTypes = {
   movie: PropTypes.shape({
-    image: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.shape({
-      directorName: PropTypes.string.isRequired,
+    Title: PropTypes.string.isRequired,
+    Description: PropTypes.string.isRequired,
+    // Genre: PropTypes.string.isRequired,
+    // Director: PropTypes.string.isRequired,
+    Genre: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
     }),
-    genre: PropTypes.shape({
-      genreName: PropTypes.string.isRequired,
+    Director: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
     }),
+    ImagePath: PropTypes.string.isRequired
   }).isRequired,
   onBackClick: PropTypes.func.isRequired,
 };
+
+
