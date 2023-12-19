@@ -1,7 +1,13 @@
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./movie-view.scss";
 
-export const MovieView = ({ movie, onBackClick }) => {
+export const MovieView = ({ movie }) => {
+  const { movieId } = useParams();
+
+  const movie = movies.find((m) => m.id === movie.id);
+
   return (
     <div>
       <div>
@@ -23,12 +29,13 @@ export const MovieView = ({ movie, onBackClick }) => {
       <div>
         <img src={movie.ImagePath} />
       </div>
-      <button
-        className="back-button"
-        style={{ cursor: "pointer" }}
-        onClick={onBackClick}>
-        Back to movie list
-      </button>
+      <Link to={`/`}>
+        <button
+          className="back-button"
+          style={{ cursor: "pointer" }}>
+          Back to movie list
+        </button>
+      </Link>
     </div>
   );
 };
@@ -38,8 +45,6 @@ MovieView.propTypes = {
   movie: PropTypes.shape({
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
-    // Genre: PropTypes.string.isRequired,
-    // Director: PropTypes.string.isRequired,
     Genre: PropTypes.shape({
       Name: PropTypes.string.isRequired,
     }),
