@@ -4,9 +4,11 @@ import { MovieView } from "../movie-view/movie-view";
 import { SignupView } from "../signup-view/signup-view";
 import { LoginView } from "../login-view/login-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { ProfileView } from "../profile-view/profile-view";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 
 
 export const MainView = () => {
@@ -49,12 +51,58 @@ export const MainView = () => {
       });
   }, [token]);
 
+  const addFav = (id) => {
+    fetch(`https://awolf-movies-app.onrender.com/users/${user.Username}/movies/${id}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        alert("Failed to add movie");
+      }
+    }).then((user) => {
+      if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
+        setUser(user);
+      }
+    }).catch(error => {
+      console.error("Error: ", error);
+    });
+  };
+
+  const removeFav = (id) => {
+    fetch(`https://awolf-movies-app.onrender.com/users/${user.Username}/movies/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        alert("Failed to remove movie")
+      }
+    }).then((user) => {
+      if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
+        setUser(user);
+      }
+    }).catch(error => {
+      console.error("Error: ", error);
+    });
+  };
+
   return (
     <BrowserRouter>
       <NavigationBar
         user={user}
         onLoggedOut={() => {
           setUser(null);
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
         }}
       />
       <Row className="justify-0content-md-center">
@@ -121,10 +169,30 @@ export const MainView = () => {
               </>
             }
           />
+          <Route
+            path="/profile"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : (
+                  <Col>
+                    <ProfileView
+                      user={user}
+                      movies={movies}
+                      removeFav={removeFav}
+                      addFav={addFav}
+                      setUser={setUser}
+                    />
+                  </Col>
+                )}
+              </>
+            }
+          />
         </Routes>
       </Row>
     </BrowserRouter>
   );
 };
 
-<button onClick={() => { setUser(null); setToken(null); }}>Logout</button>
+{/* <button onClick={() => { setUser(null); setToken(null); }}>Logout</button> */ }
