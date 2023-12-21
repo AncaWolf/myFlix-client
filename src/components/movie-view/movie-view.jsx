@@ -1,42 +1,77 @@
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import { Col, Row, Button } from "react-bootstrap";
+// import { MovieCard } from "../movie-card/movie-card";
 // import PropTypes from "prop-types";
 import "./movie-view.scss";
 
-export const MovieView = ({ movies }) => {
+export const MovieView = ({ movies, removeFav, addFav }) => {
   const { movieId } = useParams();
 
   const movie = movies.find((movie) => movie.id === movieId);
 
   return (
-    <div>
-      <div>
-        <span>Title: </span>
-        <span>{movie.Title}</span>
-      </div>
-      <div>
-        <span>Genre: </span>
-        <span>{movie.Genre.Name}</span>
-      </div>
-      <div>
-        <span>Director: </span>
-        <span>{movie.Director.Name}</span>
-      </div>
-      <div>
-        <span>Description: </span>
-        <span>{movie.Description}</span>
-      </div>
-      <div>
-        <img src={movie.ImagePath} />
-      </div>
-      <Link to={`/`}>
-        <button
-          className="back-button"
-          style={{ cursor: "pointer" }}>
-          Back to movie list
-        </button>
-      </Link>
-    </div>
+    <>
+      <Row>
+
+        <Col>
+          <div>
+            <span>{movie.Title}</span>
+          </div>
+          <div>
+            <span>Description: </span>
+            <span>{movie.Description}</span>
+          </div>
+          <div>
+            <span>Director: </span>
+            <span>{movie.Director.Name}</span>
+          </div>
+          <div>
+            <span>Genre: </span>
+            <span>{movie.Genre.Name}</span>
+          </div>
+          <Col>
+            <img src={movie.ImagePath} />
+          </Col>
+          <Link to={`/`}>
+            <button
+              className="back-button"
+              style={{ cursor: "pointer" }}>
+              Back to movie list
+            </button>
+          </Link>
+        </Col>
+      </Row>
+    </>
+
+    // <div>
+    //   <div>
+    //     <span>Title: </span>
+    //     <span>{movie.Title}</span>
+    //   </div>
+    //   <div>
+    //     <span>Genre: </span>
+    //     <span>{movie.Genre.Name}</span>
+    //   </div>
+    //   <div>
+    //     <span>Director: </span>
+    //     <span>{movie.Director.Name}</span>
+    //   </div>
+    //   <div>
+    //     <span>Description: </span>
+    //     <span>{movie.Description}</span>
+    //   </div>
+    //   <div>
+    //     <img src={movie.ImagePath} />
+    //   </div>
+    //   <Link to={`/`}>
+    //     <button
+    //       className="back-button"
+    //       style={{ cursor: "pointer" }}>
+    //       Back to movie list
+    //     </button>
+    //   </Link>
+    // </div>
   );
 };
 
