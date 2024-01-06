@@ -70,7 +70,7 @@ export const MovieCard = ({ movie, token, setUser, user }) => {
       <Card.Img className="w-100" variant="top" src={movie.ImagePath} />
       <Card.Body>
         <Card.Title>{movie.Title}</Card.Title>
-        <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
+        <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
           <Button variant="link">See movie details</Button>
         </Link>
         <Card.Body className="favorite-btns">
