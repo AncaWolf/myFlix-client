@@ -30,23 +30,23 @@ export const MainView = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        const moviesFromApi = data.map((movie) => {
-          return {
-            _id: movie.id,
-            Title: movie.Title,
-            ImagePath: movie.ImagePath,
-            Description: movie.Description,
-            Genre: {
-              Name: movie.Genre.Name,
-              Description: movie.Genre.Description,
-            },
-            Director: {
-              Name: movie.Director.Name,
-              Bio: movie.Director.Bio,
-              Birthyear: movie.Birthyear
-            },
-          };
-        });
+        // const moviesFromApi = data.map((movie) => {
+        //   return {
+        //     _id: movie.id,
+        //     Title: movie.Title,
+        //     ImagePath: movie.ImagePath,
+        //     Description: movie.Description,
+        //     Genre: {
+        //       Name: movie.Genre.Name,
+        //       Description: movie.Genre.Description,
+        //     },
+        //     Director: {
+        //       Name: movie.Director.Name,
+        //       Bio: movie.Director.Bio,
+        //       Birthyear: movie.Birthyear
+        //     },
+        //   };
+        // });
         setMovies(moviesFromApi);
       });
   }, [token]);
@@ -161,7 +161,7 @@ export const MainView = () => {
                   <>
                     {movies.map((movie) => (
                       <Col className="mb-5" key={movie.id} md={3}>
-                        <MovieCard movie={movie} />
+                        <MovieCard movie={movie} user={user} set User={setUser} toke={token} />
                       </Col>
                     ))}
                   </>
