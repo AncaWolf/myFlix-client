@@ -27216,23 +27216,23 @@ const MainView = ()=>{
             }
         }).then((response)=>response.json()).then((data)=>{
             console.log(data);
-            // const moviesFromApi = data.map((movie) => {
-            //   return {
-            //     _id: movie.id,
-            //     Title: movie.Title,
-            //     ImagePath: movie.ImagePath,
-            //     Description: movie.Description,
-            //     Genre: {
-            //       Name: movie.Genre.Name,
-            //       Description: movie.Genre.Description,
-            //     },
-            //     Director: {
-            //       Name: movie.Director.Name,
-            //       Bio: movie.Director.Bio,
-            //       Birthyear: movie.Birthyear
-            //     },
-            //   };
-            // });
+            const moviesFromApi = data.map((movie)=>{
+                return {
+                    _id: movie.id,
+                    Title: movie.Title,
+                    ImagePath: movie.ImagePath,
+                    Description: movie.Description,
+                    Genre: {
+                        Name: movie.Genre.Name,
+                        Description: movie.Genre.Description
+                    },
+                    Director: {
+                        Name: movie.Director.Name,
+                        Bio: movie.Director.Bio,
+                        Birthyear: movie.Birthyear
+                    }
+                };
+            });
             setMovies(moviesFromApi);
         });
     }, [
