@@ -27216,23 +27216,23 @@ const MainView = ()=>{
             }
         }).then((response)=>response.json()).then((data)=>{
             console.log(data);
-            const moviesFromApi = data.map((movie)=>{
-                return {
-                    _id: movie.id,
-                    Title: movie.Title,
-                    ImagePath: movie.ImagePath,
-                    Description: movie.Description,
-                    Genre: {
-                        Name: movie.Genre.Name,
-                        Description: movie.Genre.Description
-                    },
-                    Director: {
-                        Name: movie.Director.Name,
-                        Bio: movie.Director.Bio,
-                        Birthyear: movie.Birthyear
-                    }
-                };
-            });
+            // const moviesFromApi = data.map((movie) => {
+            //   return {
+            //     _id: movie.id,
+            //     Title: movie.Title,
+            //     ImagePath: movie.ImagePath,
+            //     Description: movie.Description,
+            //     Genre: {
+            //       Name: movie.Genre.Name,
+            //       Description: movie.Genre.Description,
+            //     },
+            //     Director: {
+            //       Name: movie.Director.Name,
+            //       Bio: movie.Director.Bio,
+            //       Birthyear: movie.Birthyear
+            //     },
+            //   };
+            // });
             setMovies(moviesFromApi);
         });
     }, [
@@ -27355,7 +27355,11 @@ const MainView = ()=>{
                                             className: "mb-5",
                                             md: 3,
                                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                                                movie: movie
+                                                movie: movie,
+                                                user: user,
+                                                set: true,
+                                                User: setUser,
+                                                toke: token
                                             }, void 0, false, void 0, void 0)
                                         }, movie.id, false, void 0, void 0))
                                 }, void 0, false)
@@ -27502,7 +27506,7 @@ const MovieCard = ({ movie, token, setUser, user })=>{
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
-                        to: `/movies/${encodeURIComponent(movie.id)}`,
+                        to: `/movies/${encodeURIComponent(movie._id)}`,
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                             variant: "link",
                             children: "See movie details"
