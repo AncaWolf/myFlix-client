@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export const MovieCard = ({ movie, token, setUser, user }) => {
+  console.log("Movie from movie card", movie);
+
   const [isFavourite, setIsFavourite] = useState(
     false
   );
@@ -54,7 +56,7 @@ export const MovieCard = ({ movie, token, setUser, user }) => {
       })
       .then((user) => {
         if (user) {
-          alert("Movie was successfully deleted from favorites");
+          alert("Movie was successfully deleted from favourites");
           localStorage.setItem("user", JSON.stringify(user));
           setUser(user);
           setIsFavourite(false);

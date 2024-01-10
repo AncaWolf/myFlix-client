@@ -29,25 +29,25 @@ export const MainView = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        const moviesFromApi = data.map((movie) => {
-          return {
-            _id: movie.id,
-            Title: movie.Title,
-            ImagePath: movie.ImagePath,
-            Description: movie.Description,
-            Genre: {
-              Name: movie.Genre.Name,
-              Description: movie.Genre.Description,
-            },
-            Director: {
-              Name: movie.Director.Name,
-              Bio: movie.Director.Bio,
-              Birthyear: movie.Birthyear
-            },
-          };
-        });
-        setMovies(moviesFromApi);
+        // console.log(data);
+        // const moviesFromApi = data.map((movie) => {
+        //   return {
+        //     _id: movie.id,
+        //     Title: movie.Title,
+        //     ImagePath: movie.ImagePath,
+        //     Description: movie.Description,
+        //     Genre: {
+        //       Name: movie.Genre.Name,
+        //       Description: movie.Genre.Description,
+        //     },
+        //     Director: {
+        //       Name: movie.Director.Name,
+        //       Bio: movie.Director.Bio,
+        //       Birthyear: movie.Birthyear
+        //     },
+        //   };
+        // });
+        setMovies(data);
       });
   }, [token]);
 
@@ -105,7 +105,7 @@ export const MainView = () => {
           localStorage.removeItem("user");
         }}
       />
-      <Row className="justify-0content-md-center">
+      <Row className="justify-content-md-center">
         <Routes>
           <Route
             path="/signup"
@@ -161,7 +161,7 @@ export const MainView = () => {
                   <>
                     {movies.map((movie) => (
                       <Col className="mb-5" key={movie.id} md={3}>
-                        <MovieCard movie={movie} user={user} set User={setUser} toke={token} />
+                        <MovieCard movie={movie} user={user} set User={setUser} token={token} />
                       </Col>
                     ))}
                   </>

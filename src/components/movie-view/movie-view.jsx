@@ -1,14 +1,21 @@
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Col, Row, Button } from "react-bootstrap";
 // import { MovieCard } from "../movie-card/movie-card";
 // import PropTypes from "prop-types";
 import "./movie-view.scss";
 
-export const MovieView = ({ movies, removeFav, addFav }) => {
-  const { movieId } = useParams();
 
-  const movie = movies.find((movie) => movie.id === movieId);
+export const MovieView = ({ movies }) => {
+
+  const { movieId } = useParams()
+  const movie = movies.find((movie) => movie._id === movieId);
+  // export const MovieView = ({ movies, removeFav, addFav }) => {
+  //   const { movieId } = useParams();
+  //   console.log("Movies from movie view", movies);
+
+  //   const movie = movies.find((movie) => movie._id === movieId);
+  //   console.log("Movie from movie view", movie);
 
   return (
     <>
