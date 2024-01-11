@@ -12,14 +12,14 @@ export const MovieCard = ({ movie, token, setUser, user }) => {
   );
 
   useEffect(() => {
-    if (user.FavouriteMovies && user.FavouriteMovies.includes(movie.id)) {
+    if (user.FavouriteMovies && user.FavouriteMovies.includes(movie._id)) {
       setIsFavourite(true);
     }
   }, [user]);
 
   const addFavouriteMovie = () => {
     fetch(
-      `https://awolf-movies-app.onrender.com/users/${user.username}/movies/${movie.id}`,
+      `https://awolf-movies-app.onrender.com/users/${user.Username}/movies/${movie._id}`,
       { method: "POST", headers: { Authorization: `Bearer ${token}` } }
     )
       .then((response) => {
@@ -44,7 +44,7 @@ export const MovieCard = ({ movie, token, setUser, user }) => {
 
   const removeFavouriteMovie = () => {
     fetch(
-      `https://awolf-movies-app.onrender.com/users/${user.username}/movies/${movie.id}`,
+      `https://awolf-movies-app.onrender.com/users/${user.Username}/movies/${movie._id}`,
       { method: "DELETE", headers: { Authorization: `Bearer ${token}` } }
     )
       .then((response) => {

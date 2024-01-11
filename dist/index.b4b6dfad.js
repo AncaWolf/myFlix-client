@@ -27238,8 +27238,8 @@ const MainView = ()=>{
     }, [
         token
     ]);
-    const addFav = (id)=>{
-        fetch(`https://awolf-movies-app.onrender.com/users/${user.Username}/movies/${id}`, {
+    const addFav = (_id)=>{
+        fetch(`https://awolf-movies-app.onrender.com/users/${user.Username}/movies/${movie._id}`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -27256,8 +27256,8 @@ const MainView = ()=>{
             console.error("Error: ", error);
         });
     };
-    const removeFav = (id)=>{
-        fetch(`https://awolf-movies-app.onrender.com/users/${user.Username}/movies/${id}`, {
+    const removeFav = (_id)=>{
+        fetch(`https://awolf-movies-app.onrender.com/users/${user.Username}/movies/${movie._id}`, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -27351,17 +27351,16 @@ const MainView = ()=>{
                                 }, void 0, false, void 0, void 0) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     children: "There are no movies in the list!"
                                 }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-                                    children: movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                                    children: movies.map((movie1)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                             className: "mb-5",
                                             md: 3,
                                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                                                movie: movie,
+                                                movie: movie1,
                                                 user: user,
-                                                set: true,
-                                                User: setUser,
+                                                setUser: setUser,
                                                 token: token
                                             }, void 0, false, void 0, void 0)
-                                        }, movie.id, false, void 0, void 0))
+                                        }, movie1._id, false, void 0, void 0))
                                 }, void 0, false)
                             }, void 0, false)
                         }, void 0, false, {
@@ -27441,12 +27440,12 @@ const MovieCard = ({ movie, token, setUser, user })=>{
     console.log("Movie from movie card", movie);
     const [isFavourite, setIsFavourite] = (0, _react.useState)(false);
     (0, _react.useEffect)(()=>{
-        if (user.FavouriteMovies && user.FavouriteMovies.includes(movie.id)) setIsFavourite(true);
+        if (user.FavouriteMovies && user.FavouriteMovies.includes(movie._id)) setIsFavourite(true);
     }, [
         user
     ]);
     const addFavouriteMovie = ()=>{
-        fetch(`https://awolf-movies-app.onrender.com/users/${user.username}/movies/${movie.id}`, {
+        fetch(`https://awolf-movies-app.onrender.com/users/${user.Username}/movies/${movie._id}`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -27466,7 +27465,7 @@ const MovieCard = ({ movie, token, setUser, user })=>{
         });
     };
     const removeFavouriteMovie = ()=>{
-        fetch(`https://awolf-movies-app.onrender.com/users/${user.username}/movies/${movie.id}`, {
+        fetch(`https://awolf-movies-app.onrender.com/users/${user.Username}/movies/${movie._id}`, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${token}`

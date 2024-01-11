@@ -51,8 +51,8 @@ export const MainView = () => {
       });
   }, [token]);
 
-  const addFav = (id) => {
-    fetch(`https://awolf-movies-app.onrender.com/users/${user.Username}/movies/${id}`, {
+  const addFav = (_id) => {
+    fetch(`https://awolf-movies-app.onrender.com/users/${user.Username}/movies/${movie._id}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`
@@ -73,8 +73,8 @@ export const MainView = () => {
     });
   };
 
-  const removeFav = (id) => {
-    fetch(`https://awolf-movies-app.onrender.com/users/${user.Username}/movies/${id}`, {
+  const removeFav = (_id) => {
+    fetch(`https://awolf-movies-app.onrender.com/users/${user.Username}/movies/${movie._id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`
@@ -160,8 +160,8 @@ export const MainView = () => {
                 ) : (
                   <>
                     {movies.map((movie) => (
-                      <Col className="mb-5" key={movie.id} md={3}>
-                        <MovieCard movie={movie} user={user} set User={setUser} token={token} />
+                      <Col className="mb-5" key={movie._id} md={3}>
+                        <MovieCard movie={movie} user={user} setUser={setUser} token={token} />
                       </Col>
                     ))}
                   </>
