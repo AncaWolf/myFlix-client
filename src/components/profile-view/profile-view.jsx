@@ -12,7 +12,7 @@ export const ProfileView = ({ user, setUser, movies, removeFav, addFav }) => {
   const [email, setEmail] = useState(user.Email);
   const [birthdate, setBirthdate] = useState(user.Birthdate);
   const navigate = useNavigate();
-  const favouriteMovieList = movies.filter(movie => user.FavouriteMovies.includes(movie.id));
+  const favouriteMovieList = movies.filter(movie => user.FavouriteMovies.includes(movie._id));
   const token = localStorage.getItem("token");
 
   const handleUpdate = (event) => {
@@ -21,7 +21,8 @@ export const ProfileView = ({ user, setUser, movies, removeFav, addFav }) => {
     const data = {
       Username: username,
       Email: email,
-      Birthdate: birthdate
+      Birthdate: birthdate,
+      Password: user.Password,
     }
 
     fetch(`https://awolf-movies-app.onrender.com/users`, {
@@ -102,9 +103,12 @@ export const ProfileView = ({ user, setUser, movies, removeFav, addFav }) => {
                 <Col sm={7} md={5} lg={3} xl={2} className="mx-2 mt-2 mb-5 col-6 similar-movies-img" key={movie._id}>
                   <MovieCard
                     movie={movie}
-                    removeFav={removeFav}
-                    addFav={addFav}
-                    isFavourite={user.FavouriteMovies.includes(movie._id)}
+                    user={user}
+                    token={token}
+                    setUser={setUser}
+                  // removeFav={removeFav}
+                  // addFav={addFav}
+                  // isFavourite={user.FavouriteMovies.includes(movie._id)}
                   />
                 </Col>
               ))
