@@ -25,7 +25,7 @@ export const ProfileView = ({ user, setUser, movies, removeFav, addFav }) => {
       Password: user.Password,
     }
 
-    fetch(`https://awolf-movies-app.onrender.com/users`, {
+    fetch(`https://awolf-movies-app.onrender.com/users/${user.Username}`, {
       method: "PUT",
       body: JSON.stringify(data),
       headers: {
