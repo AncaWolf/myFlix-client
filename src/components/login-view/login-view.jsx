@@ -1,7 +1,8 @@
-// import React from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
+import "./login-view.scss"
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -26,7 +27,8 @@ export const LoginView = ({ onLoggedIn }) => {
         if (data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
-          onLoggedIn(data.user, data.token);
+          // onLoggedIn(data.user, data.token);
+          dispatchEvent(setUser({ user: data.user, token: data.token }));
         } else {
           alert("No such user");
         }
@@ -34,27 +36,36 @@ export const LoginView = ({ onLoggedIn }) => {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formUsername">
-        <Form.Label>Username:</Form.Label>
-        <Form.Control
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-      </Form.Group>
+    <Container className="loginView">
+      <h2>Login Page</h2>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formUsername" className="formBox">
+          <Form.Label>Username:</Form.Label>
+          <Form.Control
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </Form.Group>
 
-      <Form.Group controlId="formPassword">
-        <Form.Label>Password:</Form.Label>
-        <Form.Control
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </Form.Group>
-      <Button variant="primary" type="submit">Submit</Button>
-    </Form>
+        <Form.Group controlId="formPassword" className="formBox">
+          <Form.Label>Password:</Form.Label>
+          <Form.Control
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </Form.Group>
+        <Button id="loginBtn" variant="primary" type="submit">
+          <span></span>
+          <span></span>
+          Login
+        </Button>
+      </Form>
+    </Container>
   );
 };
+
+
