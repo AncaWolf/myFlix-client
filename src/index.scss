@@ -1,10 +1,8 @@
-// $color: steelblue;
-
-// .my-flix {
-//     color: $color;
-// }
-
-$primary: DarkBlue;
-$body-bg: Beige;
-
 @import '~bootstrap/scss/bootstrap.scss';
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: rgb(17, 6, 37);
+}
