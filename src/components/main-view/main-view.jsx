@@ -8,16 +8,32 @@ import { ProfileView } from "../profile-view/profile-view";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import "./main-view.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { setMovies } from "../../redux/reducers/movies";
+import { setUser } from "../../redux/reducers/user";
+
 
 
 
 export const MainView = () => {
+  const movies = useSelector((state) => state.movies.list);
+  const { user, token } = useSelector((state) => state.user);
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
-  const [user, setUser] = useState(storedUser ? storedUser : null);
-  const [token, setToken] = useState(storedToken ? storedToken : null);
-  const [movies, setMovies] = useState([]);
-  // const [selectedMovie, setSelectedMovie] = useState(null);
+  // const [user, setUser] = useState(storedUser ? storedUser : null);
+  // const [token, setToken] = useState(storedToken ? storedToken : null);
+  // const [movies, setMovies] = useState([]);
+  const filter = useSelector((state) => state.movies.filter).trim().toLowerCase();
+  const filteredMovies = movies.filter((movie) => movie.title.toLowerCase().includes(filter));
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (storedUser && storedToken) {
+      dispatch(setUser({ user: storedUser, token: storedToken }));
+    }
+  }, [dispatch]);
 
   // fetch data from Api
   useEffect(() => {
@@ -29,24 +45,6 @@ export const MainView = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
-        // const moviesFromApi = data.map((movie) => {
-        //   return {
-        //     _id: movie.id,
-        //     Title: movie.Title,
-        //     ImagePath: movie.ImagePath,
-        //     Description: movie.Description,
-        //     Genre: {
-        //       Name: movie.Genre.Name,
-        //       Description: movie.Genre.Description,
-        //     },
-        //     Director: {
-        //       Name: movie.Director.Name,
-        //       Bio: movie.Director.Bio,
-        //       Birthyear: movie.Birthyear
-        //     },
-        //   };
-        // });
         setMovies(data);
       });
   }, [token]);
@@ -105,7 +103,7 @@ export const MainView = () => {
           localStorage.removeItem("user");
         }}
       />
-      <Row className="justify-content-md-center">
+      <Row className="main-container d-flex justify-content-center">
         <Routes>
           <Route
             path="/signup"
@@ -159,7 +157,7 @@ export const MainView = () => {
                   <Col>There are no movies in the list!</Col>
                 ) : (
                   <>
-                    {movies.map((movie) => (
+                    {filteredMovies.map((movie) => (
                       <Col className="mb-5" key={movie._id} md={3}>
                         <MovieCard movie={movie} user={user} setUser={setUser} token={token} />
                       </Col>
@@ -194,5 +192,3 @@ export const MainView = () => {
     </BrowserRouter>
   );
 };
-
-{/* <button onClick={() => { setUser(null); setToken(null); }}>Logout</button> */ }
