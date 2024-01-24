@@ -1,0 +1,56 @@
+.signupView {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  padding: 50px;
+}
+
+h2 {
+  margin: 0 0 30px;
+  color: white;
+  text-align: center;
+}
+
+.formBox {
+  position: relative;
+
+  input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: rgb(135, 112, 190);
+    background: transparent;
+    transition: none;
+  }
+}
+
+label {
+  position: relative;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 14px;
+  color: rgb(211, 180, 180);
+  transition: 0.5s;
+}
+
+#signupBtn {
+  background: unset;
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: rgb(207, 171, 228);
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.5s;
+  overflow: hidden;
+  margin-top: 40px;
+  letter-spacing: 4px;
+
+  span {
+    position: absolute;
+    display: block;
+  }
+}
