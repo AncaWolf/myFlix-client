@@ -25,7 +25,9 @@
     "react-dom": "^18.2.0",
     "react-router": "^6.21.0",
     "react-router-dom": "^6.21.0",
-    "save-dev": "^0.0.1-security"
+    "save-dev": "^0.0.1-security",
+    "@reduxjs/toolkit": "^2.0.1",
+    "react-redux": "^9.0.4"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.10.2",
