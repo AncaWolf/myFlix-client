@@ -2,6 +2,9 @@ import { createRoot } from 'react-dom/client';
 import { MainView } from './components/main-view/main-view';
 import Container from "react-bootstrap/Container";
 import "./index.scss";
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
+
 
 // main component (will eventually use all the others)
 // const MyFlixApplication = () => {
@@ -14,9 +17,11 @@ import "./index.scss";
 
 const MovieApp = () => {
     return (
-        <Container>
-            <MainView />
-        </Container>
+        <Provider store={store}>
+            <Container>
+                <MainView />
+            </Container>
+        </Provider>
     );
 };
 
