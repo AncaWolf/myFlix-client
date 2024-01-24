@@ -1,0 +1,9 @@
+.main-container {
+  padding-top: 25px;
+  color: rgb(220, 205, 230);
+}
+
+.main-container .movie-img:hover {
+  transform: perspective(800px) rotateY(0deg);
+  opacity: 1;
+}
