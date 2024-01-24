@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
-import "./movie-card.scss";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import "./movie-card.scss";
 
 export const MovieCard = ({ movie, token, setUser, user }) => {
   console.log("Movie from movie card", movie);
@@ -68,10 +68,10 @@ export const MovieCard = ({ movie, token, setUser, user }) => {
   };
 
   return (
-    <Card className="h-100">
-      <Card.Img className="w-100" variant="top" src={movie.ImagePath} />
-      <Card.Body>
-        <Card.Title>{movie.Title}</Card.Title>
+    <Card className="mc-box">
+      <Card.Img className="movie-img" variant="top" src={movie.ImagePath} />
+      <Card.Body className="mc-bg">
+        <Card.Title class="mc-text">{movie.Title}</Card.Title>
         <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
           <Button variant="link">See movie details</Button>
         </Link>
