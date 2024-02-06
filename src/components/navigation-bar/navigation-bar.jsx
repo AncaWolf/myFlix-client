@@ -1,7 +1,8 @@
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setUser } from "../../redux/reducers/user";
+// import { setUser } from "../../redux/reducers/user";
+import { clearUser } from '../../redux/reducers/user';
 
 export const NavigationBar = ({ user, onLoggedOut }) => {
   const currentUser = useSelector((state) => state.user); // Use a different variable name to avoid conflicts
@@ -35,9 +36,12 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
                   Profile
                 </Nav.Link>
                 {/* <Nav.Link onClick={onLoggedOut}>Logout</Nav.Link> */}
-                <Nav.Link onClick={() => dispatch(setUser(null))}>
+                <Nav.Link onClick={() => dispatch(clearUser())}>
                   Logout
                 </Nav.Link>
+                {/* <Nav.Link onClick={() => dispatch(setUser(null))}>
+                  Logout
+                </Nav.Link> */}
               </>
             )}
           </Nav>
