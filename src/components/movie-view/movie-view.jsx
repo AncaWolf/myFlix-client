@@ -2,12 +2,15 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Col, Row, Button } from "react-bootstrap";
 import "./movie-view.scss";
+import { useSelector } from "react-redux";
 
 
 export const MovieView = ({ movies }) => {
 
+  // const movies = useSelector((state) => state.movies);
   const { movieId } = useParams()
   const movie = movies.find((movie) => movie._id === movieId);
+
 
   return (
     <>
@@ -35,11 +38,11 @@ export const MovieView = ({ movies }) => {
           <span></span>
           <span></span>
           <Link to={`/`}>
-            <button
+            <Button
               className="back-button"
               style={{ cursor: "pointer" }}>
               Back to movie list
-            </button>
+            </Button>
           </Link>
         </Col>
       </Row>
