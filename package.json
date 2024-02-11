@@ -29,7 +29,6 @@
     "save-dev": "^0.0.1-security"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.11.0",
     "parcel": "^2.11.0",
     "process": "^0.11.10"
   }
