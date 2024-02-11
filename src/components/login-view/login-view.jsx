@@ -9,7 +9,7 @@ import { setUser } from "../../redux/reducers/user";
 
 
 
-export const LoginView = ({ onLoggedIn }) => {
+export const LoginView = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState(null);
@@ -33,9 +33,8 @@ export const LoginView = ({ onLoggedIn }) => {
         if (data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
-          onLoggedIn(data.user, data.token);
+          // onLoggedIn(data.user, data.token);
           dispatch(setUser({ user: data.user, token: data.token }));
-          // dispatchEvent(setUser({ user: data.user, token: data.token }));
         } else {
           alert("No such user");
         }
