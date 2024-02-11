@@ -12,6 +12,8 @@ import "./main-view.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { setMovies } from "../../redux/reducers/movies";
 import { setUser } from "../../redux/reducers/user";
+// import { MoviesList } from "../movies-list/movies-list";
+// import { MoviesFilter } from "../movies-filter/movies-filter";
 
 
 
@@ -21,30 +23,38 @@ export const MainView = () => {
   const { user, token } = useSelector((state) => state.user);
 
   //NIzar
-  let storedUser = null;
-  try {
-    const userFromStorage = localStorage.getItem("user");
-    if (userFromStorage) {
-      storedUser = JSON.parse(userFromStorage);
-    }
-  } catch (error) {
-    console.error("Error parsing user from localStorage:", error);
-    // Handle the error (e.g., clearing the invalid item or notifying the user)
-  }
+  // let storedUser = null;
+  // try {
+  //   const userFromStorage = localStorage.getItem("user");
+  //   if (userFromStorage) {
+  //     storedUser = JSON.parse(userFromStorage);
+  //   }
+  // } catch (error) {
+  //   console.error("Error parsing user from localStorage:", error);
+  //   // Handle the error (e.g., clearing the invalid item or notifying the user)
+  // }
+
+  // lines above(25-34) - trying something else (in useEffect bellow)-Anca
+
   //NIzar
-  const storedToken = localStorage.getItem("token");
+  // const storedToken = localStorage.getItem("token"); - moved in useEffect(Anca)
   // const [user, setUser] = useState(storedUser ? storedUser : null);
   // const [token, setToken] = useState(storedToken ? storedToken : null);
   // const [movies, setMovies] = useState([]);
+
   const filter = useSelector((state) => state.movies.filter).trim().toLowerCase();
-  console.log("Filtering movies with:", filter);
-  movies.forEach(movie => console.log(movie.title));
   // const filteredMovies = movies.filter((movie) => movie.title.toLowerCase().includes(filter));
   const filteredMovies = movies; // Temporarily bypass the filter
+  console.log("Filtering movies with:", filter);
+
+
+  movies.forEach(movie => console.log(movie.title));
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedToken = localStorage.getItem("token");
     if (storedUser && storedToken) {
       dispatch(setUser({ user: storedUser, token: storedToken }));
     }
@@ -114,8 +124,10 @@ export const MainView = () => {
         user={user}
         onLoggedOut={() => {
           setUser(null);
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
+          setToken(null);
+          localStorage.clear()
+          // localStorage.removeItem("token");
+          // localStorage.removeItem("user");
         }}
       />
       <Row className="main-container d-flex justify-content-center">
@@ -142,7 +154,7 @@ export const MainView = () => {
                   <Navigate to="/" />
                 ) : (
                   <Col md={5}>
-                    <LoginView onLoggedIn={(user) => setUser(user)} />
+                    <LoginView /* onLoggedIn={(user) => setUser(user)} */ />
                   </Col>
                 )}
               </>
@@ -154,11 +166,15 @@ export const MainView = () => {
               <>
                 {!user ? (
                   <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col>The list is empty!</Col>
                 ) : (
                   <Col md={8}>
-                    <MovieView movies={movies} />
+                    {/* <MovieView movies={movies} /> */}
+                    <MovieView user={user} token={token} setUser={setUser} />
                   </Col>
                 )}
+
               </>
             }
           />
@@ -166,19 +182,22 @@ export const MainView = () => {
             path="/"
             element={
               <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
-                  <Col>There are no movies in the list!</Col>
-                ) : (
-                  <>
-                    {filteredMovies.map((movie) => (
-                      <Col className="mb-5" key={movie._id} md={3}>
-                        <MovieCard movie={movie} user={user} setUser={setUser} token={token} />
-                      </Col>
-                    ))}
-                  </>
-                )}
+                {!user ?
+
+                  (
+                    <Navigate to="/login" replace />
+                  ) : movies.length === 0 ? (
+                    <Col>There are no movies in the list!</Col>
+                  ) : (
+                    <>
+                      {filteredMovies.map((movie) => (
+                        <Col className="mb-5" key={movie._id} md={3}>
+                          <MovieCard movie={movie} user={user} setUser={setUser} token={token} />
+                        </Col>
+                      ))}
+                    </>
+                  )
+                }
               </>
             }
           />
