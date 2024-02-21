@@ -27220,32 +27220,12 @@ const MainView = ()=>{
     _s();
     const movies = (0, _reactRedux.useSelector)((state)=>state.movies.list);
     const { user, token } = (0, _reactRedux.useSelector)((state)=>state.user);
-    //NIzar
-    // let storedUser = null;
-    // try {
-    //   const userFromStorage = localStorage.getItem("user");
-    //   if (userFromStorage) {
-    //     storedUser = JSON.parse(userFromStorage);
-    //   }
-    // } catch (error) {
-    //   console.error("Error parsing user from localStorage:", error);
-    //   // Handle the error (e.g., clearing the invalid item or notifying the user)
-    // }
-    // lines above(25-34) - trying something else (in useEffect bellow)-Anca
-    //NIzar
-    // const storedToken = localStorage.getItem("token"); - moved in useEffect(Anca)
-    // const [user, setUser] = useState(storedUser ? storedUser : null);
-    // const [token, setToken] = useState(storedToken ? storedToken : null);
-    // const [movies, setMovies] = useState([]);
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedToken = localStorage.getItem("token");
     const filter = (0, _reactRedux.useSelector)((state)=>state.movies.filter).trim().toLowerCase();
-    // const filteredMovies = movies.filter((movie) => movie.title.toLowerCase().includes(filter));
-    const filteredMovies = movies; // Temporarily bypass the filter
-    console.log("Filtering movies with:", filter);
-    movies.forEach((movie1)=>console.log(movie1.title));
+    const filteredMovies = movies.filter((movie1)=>movie1.Title && movie1.Title.toLowerCase().includes(filter));
     const dispatch = (0, _reactRedux.useDispatch)();
     (0, _react.useEffect)(()=>{
-        const storedUser = JSON.parse(localStorage.getItem("user"));
-        const storedToken = localStorage.getItem("token");
         if (storedUser && storedToken) dispatch((0, _user.setUser)({
             user: storedUser,
             token: storedToken
@@ -27261,10 +27241,11 @@ const MainView = ()=>{
                 Authorization: `Bearer ${token}`
             }
         }).then((response)=>response.json()).then((data)=>{
-            (0, _movies.setMovies)(data);
+            dispatch((0, _movies.setMovies)(data)); // Corrected line
         });
     }, [
-        token
+        token,
+        dispatch
     ]);
     const addFav = (_id)=>{
         fetch(`https://awolf-movies-app.onrender.com/users/${user.Username}/movies/${movie._id}`, {
@@ -27307,15 +27288,16 @@ const MainView = ()=>{
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _navigationBar.NavigationBar), {
                 user: user,
                 onLoggedOut: ()=>{
-                    (0, _user.setUser)(null);
-                    setToken(null);
-                    localStorage.clear();
-                // localStorage.removeItem("token");
-                // localStorage.removeItem("user");
+                    dispatch((0, _user.setUser)({
+                        user: null,
+                        token: null
+                    }));
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("user");
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 123,
+                lineNumber: 92,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
@@ -27324,29 +27306,21 @@ const MainView = ()=>{
                     children: [
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
                             path: "/signup",
-                            element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-                                children: !user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
-                                    to: "/"
-                                }, void 0, false, {
+                            element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                                md: 5,
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 140,
-                                    columnNumber: 19
-                                }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                    md: 5,
-                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
-                                        fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 143,
-                                        columnNumber: 21
-                                    }, void 0)
-                                }, void 0, false, {
-                                    fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 142,
-                                    columnNumber: 19
+                                    lineNumber: 106,
+                                    columnNumber: 17
                                 }, void 0)
-                            }, void 0, false)
+                            }, void 0, false, {
+                                fileName: "src/components/main-view/main-view.jsx",
+                                lineNumber: 105,
+                                columnNumber: 15
+                            }, void 0)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 135,
+                            lineNumber: 102,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27356,24 +27330,26 @@ const MainView = ()=>{
                                     to: "/"
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 154,
+                                    lineNumber: 115,
                                     columnNumber: 19
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     md: 5,
-                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {}, void 0, false, {
+                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
+                                        onLoggedIn: (user)=>(0, _user.setUser)(user)
+                                    }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 157,
+                                        lineNumber: 118,
                                         columnNumber: 21
                                     }, void 0)
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 156,
+                                    lineNumber: 117,
                                     columnNumber: 19
                                 }, void 0)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 149,
+                            lineNumber: 110,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27384,34 +27360,26 @@ const MainView = ()=>{
                                     replace: true
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 168,
-                                    columnNumber: 19
-                                }, void 0) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                    children: "The list is empty!"
-                                }, void 0, false, {
-                                    fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 170,
+                                    lineNumber: 129,
                                     columnNumber: 19
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     md: 8,
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
-                                        user: user,
-                                        token: token,
-                                        setUser: (0, _user.setUser)
+                                        movies: movies
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 174,
+                                        lineNumber: 132,
                                         columnNumber: 21
                                     }, void 0)
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 172,
+                                    lineNumber: 131,
                                     columnNumber: 19
                                 }, void 0)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 163,
+                            lineNumber: 124,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27422,14 +27390,14 @@ const MainView = ()=>{
                                     replace: true
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 188,
-                                    columnNumber: 21
+                                    lineNumber: 143,
+                                    columnNumber: 19
                                 }, void 0) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     children: "There are no movies in the list!"
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 190,
-                                    columnNumber: 21
+                                    lineNumber: 145,
+                                    columnNumber: 19
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                                     children: filteredMovies.map((movie1)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                             className: "mb-5",
@@ -27441,19 +27409,19 @@ const MainView = ()=>{
                                                 token: token
                                             }, void 0, false, {
                                                 fileName: "src/components/main-view/main-view.jsx",
-                                                lineNumber: 195,
-                                                columnNumber: 27
+                                                lineNumber: 150,
+                                                columnNumber: 25
                                             }, void 0)
                                         }, movie1._id, false, {
                                             fileName: "src/components/main-view/main-view.jsx",
-                                            lineNumber: 194,
-                                            columnNumber: 25
+                                            lineNumber: 149,
+                                            columnNumber: 23
                                         }, void 0))
                                 }, void 0, false)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 181,
+                            lineNumber: 138,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27464,7 +27432,7 @@ const MainView = ()=>{
                                     replace: true
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 209,
+                                    lineNumber: 163,
                                     columnNumber: 19
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _profileView.ProfileView), {
@@ -27475,35 +27443,35 @@ const MainView = ()=>{
                                         setUser: (0, _user.setUser)
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 212,
+                                        lineNumber: 166,
                                         columnNumber: 21
                                     }, void 0)
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 211,
+                                    lineNumber: 165,
                                     columnNumber: 19
                                 }, void 0)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 204,
+                            lineNumber: 158,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 134,
+                    lineNumber: 101,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 133,
+                lineNumber: 100,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 122,
+        lineNumber: 91,
         columnNumber: 5
     }, undefined);
 }; // import { useEffect, useState } from "react";
@@ -27520,19 +27488,35 @@ const MainView = ()=>{
  // import { useSelector, useDispatch } from "react-redux";
  // import { setMovies } from "../../redux/reducers/movies";
  // import { setUser } from "../../redux/reducers/user";
+ // // import { MoviesList } from "../movies-list/movies-list";
+ // // import { MoviesFilter } from "../movies-filter/movies-filter";
  // export const MainView = () => {
  //   const movies = useSelector((state) => state.movies.list);
  //   const { user, token } = useSelector((state) => state.user);
- //   const storedUser = JSON.parse(localStorage.getItem("user"));
- //   const storedToken = localStorage.getItem("token");
+ //   //NIzar
+ //   // let storedUser = null;
+ //   // try {
+ //   //   const userFromStorage = localStorage.getItem("user");
+ //   //   if (userFromStorage) {
+ //   //     storedUser = JSON.parse(userFromStorage);
+ //   //   }
+ //   // } catch (error) {
+ //   //   console.error("Error parsing user from localStorage:", error);
+ //   //   // Handle the error (e.g., clearing the invalid item or notifying the user)
+ //   // }
+ //   // lines above(25-34) - trying something else (in useEffect bellow)-Anca
+ //   //NIzar
+ //   // const storedToken = localStorage.getItem("token"); - moved in useEffect(Anca)
  //   // const [user, setUser] = useState(storedUser ? storedUser : null);
  //   // const [token, setToken] = useState(storedToken ? storedToken : null);
  //   // const [movies, setMovies] = useState([]);
  //   const filter = useSelector((state) => state.movies.filter).trim().toLowerCase();
- //   // const filteredMovies = movies.filter((movie) => movie.title.toLowerCase().includes(filter));
- //   const filteredMovies = movies; // Temporarily bypass the filter
+ //   const filteredMovies = movies.filter((movie) => movie.Title && movie.Title.toLowerCase().includes(filter));
+ //   movies.forEach(movie => console.log(movie.Title));
  //   const dispatch = useDispatch();
  //   useEffect(() => {
+ //     const storedUser = JSON.parse(localStorage.getItem("user"));
+ //     const storedToken = localStorage.getItem("token");
  //     if (storedUser && storedToken) {
  //       dispatch(setUser({ user: storedUser, token: storedToken }));
  //     }
@@ -27598,8 +27582,10 @@ const MainView = ()=>{
  //         user={user}
  //         onLoggedOut={() => {
  //           setUser(null);
- //           localStorage.removeItem("token");
- //           localStorage.removeItem("user");
+ //           setToken(null);
+ //           localStorage.clear()
+ //           // localStorage.removeItem("token");
+ //           // localStorage.removeItem("user");
  //         }}
  //       />
  //       <Row className="main-container d-flex justify-content-center">
@@ -27607,15 +27593,9 @@ const MainView = ()=>{
  //           <Route
  //             path="/signup"
  //             element={
- //               <>
- //                 {!user ? (
- //                   <Navigate to="/" />
- //                 ) : (
- //                   <Col md={5}>
- //                     <SignupView />
- //                   </Col>
- //                 )}
- //               </>
+ //               <Col md={5}>
+ //                 <SignupView />
+ //               </Col>
  //             }
  //           />
  //           <Route
@@ -27638,9 +27618,12 @@ const MainView = ()=>{
  //               <>
  //                 {!user ? (
  //                   <Navigate to="/login" replace />
+ //                 ) : movies.length === 0 ? (
+ //                   <Col>The list is empty!</Col>
  //                 ) : (
  //                   <Col md={8}>
- //                     <MovieView movies={movies} />
+ //                     {/* <MovieView movies={movies} /> */}
+ //                     <MovieView user={user} token={token} setUser={setUser} />
  //                   </Col>
  //                 )}
  //               </>
@@ -27650,203 +27633,21 @@ const MainView = ()=>{
  //             path="/"
  //             element={
  //               <>
- //                 {!user ? (
- //                   <Navigate to="/login" replace />
- //                 ) : movies.length === 0 ? (
- //                   <Col>There are no movies in the list!</Col>
- //                 ) : (
- //                   <>
- //                     {filteredMovies.map((movie) => (
- //                       <Col className="mb-5" key={movie._id} md={3}>
- //                         <MovieCard movie={movie} user={user} setUser={setUser} token={token} />
- //                       </Col>
- //                     ))}
- //                   </>
- //                 )}
- //               </>
- //             }
- //           />
- //           <Route
- //             path="/profile"
- //             element={
- //               <>
- //                 {!user ? (
- //                   <Navigate to="/login" replace />
- //                 ) : (
- //                   <Col>
- //                     <ProfileView
- //                       user={user}
- //                       movies={movies}
- //                       removeFav={removeFav}
- //                       addFav={addFav}
- //                       setUser={setUser}
- //                     />
- //                   </Col>
- //                 )}
- //               </>
- //             }
- //           />
- //         </Routes>
- //       </Row>
- //     </BrowserRouter>
- //   );
- // };
- // import { useEffect, useState } from "react";
- // import { MovieCard } from "../movie-card/movie-card";
- // import { MovieView } from "../movie-view/movie-view";
- // import { SignupView } from "../signup-view/signup-view";
- // import { LoginView } from "../login-view/login-view";
- // import { NavigationBar } from "../navigation-bar/navigation-bar";
- // import { ProfileView } from "../profile-view/profile-view";
- // import Row from "react-bootstrap/Row";
- // import Col from "react-bootstrap/Col";
- // import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
- // import "./main-view.scss";
- // import { useSelector, useDispatch } from "react-redux";
- // import { setMovies } from "../../redux/reducers/movies";
- // import { setUser } from "../../redux/reducers/user";
- // export const MainView = () => {
- //   const movies = useSelector((state) => state.movies.list);
- //   const { user, token } = useSelector((state) => state.user);
- //   const storedUser = JSON.parse(localStorage.getItem("user"));
- //   const storedToken = localStorage.getItem("token");
- //   // const [user, setUser] = useState(storedUser ? storedUser : null);
- //   // const [token, setToken] = useState(storedToken ? storedToken : null);
- //   // const [movies, setMovies] = useState([]);
- //   const filter = useSelector((state) => state.movies.filter).trim().toLowerCase();
- //   const filteredMovies = movies.filter((movie) => movie.title.toLowerCase().includes(filter));
- //   const dispatch = useDispatch();
- //   useEffect(() => {
- //     if (storedUser && storedToken) {
- //       dispatch(setUser({ user: storedUser, token: storedToken }));
- //     }
- //   }, [dispatch]);
- //   // fetch data from Api
- //   useEffect(() => {
- //     if (!token) {
- //       return;
- //     }
- //     fetch("https://awolf-movies-app.onrender.com/movies", {
- //       headers: { Authorization: `Bearer ${token}` }
- //     })
- //       .then((response) => response.json())
- //       .then((data) => {
- //         setMovies(data);
- //       });
- //   }, [token]);
- //   const addFav = (_id) => {
- //     fetch(`https://awolf-movies-app.onrender.com/users/${user.Username}/movies/${movie._id}`, {
- //       method: "POST",
- //       headers: {
- //         Authorization: `Bearer ${token}`
- //       }
- //     }).then((response) => {
- //       if (response.ok) {
- //         return response.json();
- //       } else {
- //         alert("Failed to add movie");
- //       }
- //     }).then((user) => {
- //       if (user) {
- //         localStorage.setItem("user", JSON.stringify(user));
- //         setUser(user);
- //       }
- //     }).catch(error => {
- //       console.error("Error: ", error);
- //     });
- //   };
- //   const removeFav = (_id) => {
- //     fetch(`https://awolf-movies-app.onrender.com/users/${user.Username}/movies/${movie._id}`, {
- //       method: "DELETE",
- //       headers: {
- //         Authorization: `Bearer ${token}`
- //       }
- //     }).then((response) => {
- //       if (response.ok) {
- //         return response.json();
- //       } else {
- //         alert("Failed to remove movie")
- //       }
- //     }).then((user) => {
- //       if (user) {
- //         localStorage.setItem("user", JSON.stringify(user));
- //         setUser(user);
- //       }
- //     }).catch(error => {
- //       console.error("Error: ", error);
- //     });
- //   };
- //   return (
- //     <BrowserRouter>
- //       <NavigationBar
- //         user={user}
- //         onLoggedOut={() => {
- //           setUser(null);
- //           localStorage.removeItem("token");
- //           localStorage.removeItem("user");
- //         }}
- //       />
- //       <Row className="main-container d-flex justify-content-center">
- //         <Routes>
- //           <Route
- //             path="/signup"
- //             element={
- //               <>
- //                 {!user ? (
- //                   <Navigate to="/" />
- //                 ) : (
- //                   <Col md={5}>
- //                     <SignupView />
- //                   </Col>
- //                 )}
- //               </>
- //             }
- //           />
- //           <Route
- //             path="/login"
- //             element={
- //               <>
- //                 {user ? (
- //                   <Navigate to="/" />
- //                 ) : (
- //                   <Col md={5}>
- //                     <LoginView onLoggedIn={(user) => setUser(user)} />
- //                   </Col>
- //                 )}
- //               </>
- //             }
- //           />
- //           <Route
- //             path="/movies/:movieId"
- //             element={
- //               <>
- //                 {!user ? (
- //                   <Navigate to="/login" replace />
- //                 ) : (
- //                   <Col md={8}>
- //                     <MovieView movies={movies} />
- //                   </Col>
- //                 )}
- //               </>
- //             }
- //           />
- //           <Route
- //             path="/"
- //             element={
- //               <>
- //                 {!user ? (
- //                   <Navigate to="/login" replace />
- //                 ) : movies.length === 0 ? (
- //                   <Col>There are no movies in the list!</Col>
- //                 ) : (
- //                   <>
- //                     {filteredMovies.map((movie) => (
- //                       <Col className="mb-5" key={movie._id} md={3}>
- //                         <MovieCard movie={movie} user={user} setUser={setUser} token={token} />
- //                       </Col>
- //                     ))}
- //                   </>
- //                 )}
+ //                 {!user ?
+ //                   (
+ //                     <Navigate to="/login" replace />
+ //                   ) : movies.length === 0 ? (
+ //                     <Col>There are no movies in the list!</Col>
+ //                   ) : (
+ //                     <>
+ //                       {filteredMovies.map((movie) => (
+ //                         <Col className="mb-5" key={movie._id} md={3}>
+ //                           <MovieCard movie={movie} user={user} setUser={setUser} token={token} />
+ //                         </Col>
+ //                       ))}
+ //                     </>
+ //                   )
+ //                 }
  //               </>
  //             }
  //           />
@@ -41877,7 +41678,7 @@ $RefreshReg$(_c, "MovieView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-router-dom":"9xmpe","react-bootstrap":"3AD9A","./movie-view.scss":"jnlR5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-redux":"62sf7"}],"jnlR5":[function() {},{}],"62sf7":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-router-dom":"9xmpe","react-bootstrap":"3AD9A","./movie-view.scss":"jnlR5","react-redux":"62sf7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"jnlR5":[function() {},{}],"62sf7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Provider", ()=>Provider_default);
@@ -42986,7 +42787,7 @@ const SignupView = ()=>{
             Email: email,
             Birthdate: birthdate
         };
-        fetch("https://awolf-movies-app.onrender.com/users/signup", {
+        fetch("https://awolf-movies-app.onrender.com/users", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
@@ -43348,7 +43149,24 @@ const userSlice = (0, _toolkit.createSlice)({
     }
 });
 const { setUser, clearUser } = userSlice.actions;
-exports.default = userSlice.reducer;
+exports.default = userSlice.reducer; // import { createSlice } from '@reduxjs/toolkit';
+ // const userSlice = createSlice({
+ //   name: "user",
+ //   initialState: { user: null, token: null },
+ //   reducers: {
+ //     setUser: (state, action) => {
+ //       state.user = action.payload.user;
+ //       state.token = action.payload.token;
+ //     },
+ //     clearUser: (state) => {
+ //       state.user = null;
+ //       state.token = null;
+ //       localStorage.clear();
+ //     },
+ //   },
+ // });
+ // export const { setUser, clearUser } = userSlice.actions;
+ // export default userSlice.reducer;
 
 },{"@reduxjs/toolkit":"fuua8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fuua8":[function(require,module,exports) {
 // src/index.ts
@@ -47431,7 +47249,7 @@ $RefreshReg$(_c, "NavigationBar");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","react-redux":"62sf7","../../redux/reducers/user":"e6tdF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../movies-filter/movies-filter":"kxBRK"}],"kxBRK":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","react-redux":"62sf7","../movies-filter/movies-filter":"kxBRK","../../redux/reducers/user":"e6tdF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"kxBRK":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$adcf = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -47501,7 +47319,24 @@ const moviesSlice = (0, _toolkit.createSlice)({
     }
 });
 const { setMovies, setFilter } = moviesSlice.actions;
-exports.default = moviesSlice.reducer;
+exports.default = moviesSlice.reducer; // import { createSlice } from "@reduxjs/toolkit";
+ // const moviesSlice = createSlice({
+ //   name: "movies",
+ //   initialState: {
+ //     list: [],
+ //     filter: "",
+ //   },
+ //   reducers: {
+ //     setMovies: (state, action) => {
+ //       state.list = action.payload;
+ //     },
+ //     setFilter: (state, action) => {
+ //       state.filter = action.payload;
+ //     },
+ //   }
+ // });
+ // export const { setMovies, setFilter } = moviesSlice.actions;
+ // export default moviesSlice.reducer;
 
 },{"@reduxjs/toolkit":"fuua8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2vVqf":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$3c12 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
