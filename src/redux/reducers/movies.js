@@ -4,7 +4,7 @@ const moviesSlice = createSlice({
   name: "movies",
   initialState: {
     list: [],
-    filter: "",
+    filter: ""
   },
   reducers: {
     setMovies: (state, action) => {
@@ -12,7 +12,7 @@ const moviesSlice = createSlice({
     },
     setFilter: (state, action) => {
       state.filter = action.payload;
-    },
+    }
   }
 });
 
