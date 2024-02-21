@@ -20,7 +20,7 @@ export const SignupView = () => {
       Birthdate: birthdate
     };
 
-    fetch("https://awolf-movies-app.onrender.com/users/signup", {
+    fetch("https://awolf-movies-app.onrender.com/users", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
