@@ -22,7 +22,7 @@ This is a React-based project built on an existing server-side code (movie API),
 
 ## Getting Started
 
-- Clone repository: `git clone https://github.com/AncaWolf/movie_api.git`
+- Clone repository: `git clone https://github.com/AncaWolf/myFlix-client.git`
 - Install npm dependencies: `npm install`
 - Starting development server: `npm start`
 - To view the application, open: http://localhost:1234/
