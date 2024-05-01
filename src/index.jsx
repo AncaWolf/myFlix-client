@@ -7,13 +7,6 @@ import { Provider } from "react-redux";
 
 
 // main component (will eventually use all the others)
-// const MyFlixApplication = () => {
-//     return (
-//         <div className="my-flix">
-//             <div>Good morning</div>
-//         </div>
-//     );
-// };
 
 const MovieApp = () => {
     return (
